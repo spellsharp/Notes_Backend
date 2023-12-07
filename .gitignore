@@ -1,0 +1,4 @@
+backend/__pycache__
+notes/migrations
+notes/__pycache__
+db.sqlite3
