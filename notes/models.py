@@ -1,7 +1,8 @@
 from django.db import models
-
+import uuid
 # Create your models here.
 class Notes(models.Model):
+    id = models.CharField(primary_key=True, max_length=36, default=uuid.uuid4)
     title = models.CharField(max_length=100)
     description = models.TextField()
     tags = models.ManyToManyField('Tags', related_name='notes')
