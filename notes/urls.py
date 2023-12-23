@@ -14,6 +14,6 @@ urlpatterns = [
     # path('logout/', LogoutView.as_view(), name='auth_logout'),
     # path('register/', RegisterView.as_view(), name='auth_register'),
     path('notes/', NoteViewSet.as_view({'get': 'list'}), name='notes_list'),
-    path('notes/<int:pk>/', NoteViewSet.as_view({'get': 'retrieve'}), name='notes_detail'),
+    path('notes/<uuid:pk>/', NoteViewSet.as_view({'get': 'retrieve'}), name='notes_detail'),
     path('tags/', TagsViewSet.as_view({'get': 'list'}), name='tags_list'),
 ]
