@@ -10,6 +10,8 @@ class NoteViewSet(viewsets.ModelViewSet):
 
     @csrf_exempt
     def list(self, request):
+        # author = request.query_params.get('author', None)
+        # queryset = Notes.objects.filter(author=author)
         queryset = Notes.objects.all()
         serializer = NoteSerializer(queryset, many=True)
         return Response(serializer.data)
