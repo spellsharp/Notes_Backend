@@ -10,8 +10,11 @@ class NoteViewSet(viewsets.ModelViewSet):
 
     @csrf_exempt
     def list(self, request):
+        # TODO: When the author is implemented, this will be used to filter the notes by author.
         # author = request.query_params.get('author', None)
         # queryset = Notes.objects.filter(author=author)
+
+        # Comment this line after uncommenting the above line.
         queryset = Notes.objects.all()
         serializer = NoteSerializer(queryset, many=True)
         return Response(serializer.data)
