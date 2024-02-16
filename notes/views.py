@@ -28,6 +28,7 @@ class NoteViewSet(viewsets.ModelViewSet):
         note_instance = self.get_object()
         note_instance.title = request.data.get('title', note_instance.title)
         note_instance.description = request.data.get('description', note_instance.description)
+        note_instance.deadline = request.data.get('deadline', note_instance.deadline)
         note_instance.save()
 
         serializer = NoteSerializer(note_instance)
