@@ -3,27 +3,34 @@ from .models import Notes
 from .serializers import NoteSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 class NoteViewSet(viewsets.ModelViewSet):
     queryset = Notes.objects.all()
     serializer_class = NoteSerializer
+    permission_classes = [IsAuthenticated]
 
     @csrf_exempt
     def list(self, request):
-        # TODO: When the author is implemented, this will be used to filter the notes by author.
-        # author = request.query_params.get('author', None)
-        # queryset = Notes.objects.filter(author=author)
-
-        # Comment this line after uncommenting the above line.
+        global_search = request.query_params.get('global_search', None)
         queryset = Notes.objects.all()
+        if global_search:
+            queryset = queryset.filter(is_public=True, title__contains=global_search)
+            # print(queryset.query)
+        else:
+            queryset = queryset.filter(author=request.user)
+        
         serializer = NoteSerializer(queryset, many=True)
+        print(serializer.data)
         return Response(serializer.data)
     
     @csrf_exempt
     def create(self, request, *args, **kwargs):
         note_instance = Notes.objects.create(
-            title=request.data.get('title', ''),
-            description=request.data.get('description', ''),
+            title = request.data.get('title', ''),
+            description = request.data.get('description', ''),
+            is_public = request.data.get('is_public', False),
+            author = request.user
         )
 
         serializer = NoteSerializer(note_instance)
@@ -34,6 +41,7 @@ class NoteViewSet(viewsets.ModelViewSet):
         note_instance.title = request.data.get('title', note_instance.title)
         note_instance.description = request.data.get('description', note_instance.description)
         note_instance.deadline = request.data.get('deadline', note_instance.deadline)
+        note_instance.is_public = request.data.get('is_public', note_instance.is_public)
         note_instance.save()
 
         serializer = NoteSerializer(note_instance)
