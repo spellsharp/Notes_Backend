@@ -13,10 +13,13 @@ class NoteViewSet(viewsets.ModelViewSet):
     @csrf_exempt
     def list(self, request):
         global_search = request.query_params.get('global_search', None)
+        local_search = request.query_params.get('local_search', None)
         queryset = Notes.objects.all()
         if global_search:
             queryset = queryset.filter(is_public=True, title__contains=global_search)
             # print(queryset.query)
+        elif local_search:
+            queryset = queryset.filter(author=request.user, title__contains=local_search)
         else:
             queryset = queryset.filter(author=request.user)
         
