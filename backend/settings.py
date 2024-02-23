@@ -92,9 +92,8 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
 
-
 CRONJOBS = [
-    ('*/1 * * * *', 'notes.cron.send_reminder_emails', '>> /home/spellsharp/College/Semester3/Courses/AIE205_PY/Misc/EndsemProject/backend/backend/cron.log')
+    ('*/1 * * * *', 'notes.cron.send_reminder_emails', '>> /home/amal/Python_Project/Notes_Backend/backend/cron.log')
 ]
 
 MIDDLEWARE = [
@@ -109,6 +108,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
+
+
 
 TEMPLATES = [
     {
