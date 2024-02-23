@@ -5,13 +5,16 @@ from notes.models import Notes
 from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import timedelta
+import sys
+
+CREDENTIALS_PATH="backend/credentials.json"
+TOKEN_PATH="backend/token.json"
 
 def send_reminder_emails() -> int:
     print('Sending reminder emails...')
     notes_to_remind = Notes.objects.filter(deadline__range=(timezone.now() - timedelta(days=1), timezone.now() + timedelta(days=1)))
     users_to_remind = User.objects.filter(notes__in=notes_to_remind)
     for user in users_to_remind:
-        print(user.email)
         notes = Notes.objects.filter(author=user, deadline__range=(timezone.now() - timedelta(days=1), timezone.now() + timedelta(days=1)))
         for note in notes:
             print(note.title)
@@ -20,6 +23,9 @@ def send_reminder_emails() -> int:
             print(f"Recipient: {user.email}")
             print(f"Subject: {subject}")
             print(f"Body: {message}")
-            ezgmail.send(user.email, subject, message)
+            try:
+                ezgmail.send(user.email, subject, message)
+            except Exception as e:
+                print(e)
             print("Email send?")
     return len(notes_to_remind)
