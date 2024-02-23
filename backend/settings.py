@@ -33,6 +33,7 @@ CORS_ALLOWED_ORIGINS = ["http://localhost:3000",]
 # Application definition
 
 INSTALLED_APPS = [
+    'django_crontab',
     'notes.apps.NotesConfig',
     'rest_framework',
     'corsheaders',
@@ -91,6 +92,10 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
 
+
+CRONJOBS = [
+    ('* * * * *', 'notes.cron.send_reminder_emails')
+]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

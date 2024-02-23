@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
+
 class NoteViewSet(viewsets.ModelViewSet):
     queryset = Notes.objects.all()
     serializer_class = NoteSerializer
@@ -49,3 +50,5 @@ class NoteViewSet(viewsets.ModelViewSet):
 
         serializer = NoteSerializer(note_instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
