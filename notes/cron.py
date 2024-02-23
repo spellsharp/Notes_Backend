@@ -19,7 +19,7 @@ def send_reminder_emails() -> int:
             print(f"Sent reminder email to {user.email}")   
             print(f"Subject: {subject}")
             print(f"Body: {message}")     
-            # send_reminder(subject, message, recipient=note.recipient_email)        
+            send_reminder(subject, message, recipient=user.email)
     return len(notes_to_remind)
 
 def send_reminder(subject, message, recipient='svcodin22@gmail.com'):
