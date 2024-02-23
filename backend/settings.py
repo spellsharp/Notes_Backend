@@ -15,6 +15,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import dotenv
+
 from datetime import timedelta
 
 # Quick-start development settings - unsuitable for production
@@ -93,7 +95,7 @@ SIMPLE_JWT = {
 }
 
 CRONJOBS = [
-    ('*/1 * * * *', 'notes.cron.send_reminder_emails', '>> /home/amal/Python_Project/Notes_Backend/backend/cron.log')
+    ('*/1 * * * *', 'notes.cron.send_reminder_emails', f'>> {BASE_DIR}/backend/cron.log')
 ]
 
 MIDDLEWARE = [
