@@ -16,7 +16,7 @@ def send_reminder_emails() -> int:
         for note in notes:
             subject = 'Reminder: Deadline approaching'
             message = f"Reminder: The deadline for the note '{note.title}' is approaching. Please take necessary actions."
-            print(f"Sent reminder email to {user.email}")   
+            print(f"Sent reminder email to {user.email}")
             print(f"Subject: {subject}")
             print(f"Body: {message}")     
             # send_reminder(subject, message, recipient=note.recipient_email)        
