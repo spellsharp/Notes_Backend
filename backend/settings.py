@@ -94,7 +94,7 @@ SIMPLE_JWT = {
 
 
 CRONJOBS = [
-    ('* * * * *', 'notes.cron.send_reminder_emails')
+    ('*/1 * * * *', 'notes.cron.send_reminder_emails', '>> /home/spellsharp/College/Semester3/Courses/AIE205_PY/Misc/EndsemProject/backend/backend/cron.log')
 ]
 
 MIDDLEWARE = [

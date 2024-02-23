@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 now = timezone.now()
 naive_datetime = datetime.datetime.now()
-aware_datetime = timezone.make_aware(naive_datetime, timezone=timezone.utc)
+aware_datetime = timezone.make_aware(naive_datetime, timezone.get_current_timezone())
 
 class Notes(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
